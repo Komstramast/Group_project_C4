@@ -1,9 +1,39 @@
-# 1. качаем гит репо какой то в дир /repos
-# 2. создаем промпт и генерируем выход через https://github.com/sonsoleslp/rlmstudio.git
-# 3. .env для хранения инфы
+prompt_lm <- function(prompt, endpoint = "http://localhost:1234/v1/completions",
+                      api_key = "lm-studio", verbose = F, ...) {
+  api_url <- endpoint
+  api_key <- api_key
+  
+  
+  headers <- httr::add_headers(
+    Content-Type = "application/json",
+    Authorization = paste("Bearer", api_key)
+  )
+  
+  
+  body <- list(
+    prompt = prompt,
+    ...
+  )
+  
+  
+  response <- httr::POST(
+    url = api_url,
+    body = jsonlite::toJSON(body),
+    encode = "json",
+    headers
+  )
+  
+  
+  if (httr::status_code(response) == 200) {
+    response_content <- httr::content(response, as = "parsed")
+    if (verbose) {
+      return(response_content)
+    } else {
+      return(response_content$choices[[1]]$text)
+    }
+  } else {
+    stop("API request failed with status code: ", httr::status_code(response))
+  }
+}
 
-devtools::install_github("sonsoleslp/rlmstudio")
-
-library("rlmstudio")
-
-prompt_lm("Tell me a joke!")
+prompt_lm("Hello!")
