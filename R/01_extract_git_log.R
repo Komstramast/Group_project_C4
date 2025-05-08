@@ -8,12 +8,12 @@ library(lubridate)
 library(readr)
 
 # ✅ Настройки репозитория
-owner <- "your-github-username"  # ЗАМЕНИ!
-repo <- "your-repo-name"         # ЗАМЕНИ!
+owner <- "Komstramast"  # ЗАМЕНИ!
+repo <- "Group_project_C4"         # ЗАМЕНИ!
 n_commits <- 100                 # Сколько коммитов извлечь
 
 # 💡 Убедись, что токен установлен
-Sys.setenv(GITHUB_PAT = "ghp_xxx")  
+Sys.setenv(GITHUB_PAT = "ghp")  
 
 # 📥 Получение коммитов
 message("📥 Получаем список коммитов...")

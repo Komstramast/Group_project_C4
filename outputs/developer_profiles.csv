@@ -1,0 +1,4 @@
+author,commits_total,avg_loc_change,avg_added,avg_deleted,avg_msg_length,avg_commit_hour,std_commit_hour,n_days_active,avg_files_changed
+komstramast,8,8.125,6.25,1.875,12.375,12,2,8,1.125
+a1dfal,6,28.666666666666668,22.333333333333332,6.333333333333333,25.166666666666668,15.5,0.5477225575051661,5,1
+70x7,1,9,9,0,21,17,NA,1,1

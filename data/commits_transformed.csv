@@ -1,0 +1,20 @@
+sha,author,email,date,message,total,added,deleted,n_files,weekday,hour,message_length,is_merge,loc_change
+050320821110349620b4515edc51859138c374b5,70x7,linuxmasterrace@mail.ru,2025-04-07T17:52:51Z,init: add main.R file,9,9,0,1,Пн,17,21,FALSE,9
+9fc720383a654d7b5a8b55e9566b30af012d6cf7,a1dfal,smirnitskykostya@gmail.com,2025-05-07T15:26:25Z,rename,0,0,0,1,Ср,15,6,FALSE,0
+8673295343adaed67e87388e582ea3c11bb82bfd,a1dfal,smirnitskykostya@gmail.com,2025-05-07T15:27:08Z,commit,17,17,0,2,Ср,15,6,FALSE,17
+bea67039ca7e6ff3e5a60c33d8fd58daa74197ee,a1dfal,smirnitskykostya@gmail.com,2025-05-07T15:32:00Z,transform to etl code,89,51,38,1,Ср,15,21,FALSE,89
+e1e3bc21df33c0ca1dfb75621f1cfc1919fe6a34,a1dfal,smirnitskykostya@gmail.com,2025-05-07T16:37:46Z,create extraction script,66,66,0,1,Ср,16,24,FALSE,66
+9ffd273b64d3006a6d18e8c399b74182e2613fdf,a1dfal,smirnitskykostya@gmail.com,2025-05-07T16:37:46Z,create extraction script,0,0,0,1,Ср,16,24,FALSE,0
+68a09f207d2b4d9b2faddd0beaf82890cd06c4b4,a1dfal,smirnitskykostya@gmail.com,2025-05-07T16:43:20Z,Merge branch 'main' of https://github.com/Komstramast/Group_project_C4,0,0,0,0,Ср,16,70,TRUE,0
+3a2878b5e2341cb46ba022fb23f2a5ab85e45c61,komstramast,125812019+Komstramast@users.noreply.github.com,2025-03-09T16:56:55Z,Initial commit,2,2,0,1,Вс,16,14,FALSE,2
+8a2099eb305ea6c02da7c025c385dcfe8c6d6401,komstramast,125812019+Komstramast@users.noreply.github.com,2025-03-10T11:23:36Z,"Update README.md
+
+ver 1.0",2,1,1,1,Пн,11,25,FALSE,2
+66b9ff19b742d19408afc495fafd1f9fa06c9e77,komstramast,125812019+Komstramast@users.noreply.github.com,2025-03-15T11:33:42Z,"Update README.md
+
+ver 1.0",2,1,1,1,Сб,11,25,FALSE,2
+56b208b7b8bc7d2c2b54bfa1c3a2a81f542fc127,komstramast,paromovslava2003@gmail.com,2025-03-15T11:43:56Z,ver 1.1,7,7,0,2,Сб,11,7,FALSE,7
+bbaed84b97910d3b647b7b567eba7f5411478ff7,komstramast,paromovslava2003@gmail.com,2025-03-15T11:45:04Z,ver 1.1,4,0,4,1,Сб,11,7,FALSE,4
+5d2581ee765f65deb273811d65b19c712c978ef8,komstramast,paromovslava2003@gmail.com,2025-03-15T12:38:06Z,ver 1.1,0,0,0,1,Сб,12,7,FALSE,0
+1e38c236afe3a31fa678b5781f211bb514b03e60,komstramast,paromovslava2003@gmail.com,2025-04-24T14:24:19Z,ver 1.2,46,38,8,1,Чт,14,7,FALSE,46
+167a3b2c54b2acd1cae64ecdd8c8617fcb370442,komstramast,125812019+Komstramast@users.noreply.github.com,2025-04-26T10:28:46Z,ver 1.2,2,1,1,1,Сб,10,7,FALSE,2
