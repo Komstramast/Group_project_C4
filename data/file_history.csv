@@ -1,0 +1,26 @@
+sha,filename,status,additions,deletions,changes,date,author
+3a2878b5e2341cb46ba022fb23f2a5ab85e45c61,README.md,added,2,0,2,2025-03-09T16:56:55Z,Komstramast
+8a2099eb305ea6c02da7c025c385dcfe8c6d6401,README.md,modified,1,1,2,2025-03-10T11:23:36Z,Komstramast
+66b9ff19b742d19408afc495fafd1f9fa06c9e77,README.md,modified,1,1,2,2025-03-15T11:33:42Z,Komstramast
+56b208b7b8bc7d2c2b54bfa1c3a2a81f542fc127,README.md,modified,7,0,7,2025-03-15T11:43:56Z,Komstramast
+56b208b7b8bc7d2c2b54bfa1c3a2a81f542fc127,images/clipboard-1027590015.png,added,0,0,0,2025-03-15T11:43:56Z,Komstramast
+bbaed84b97910d3b647b7b567eba7f5411478ff7,README.md,modified,0,4,4,2025-03-15T11:45:04Z,Komstramast
+5d2581ee765f65deb273811d65b19c712c978ef8,Анализ Github.pptx,added,0,0,0,2025-03-15T12:38:06Z,Komstramast
+050320821110349620b4515edc51859138c374b5,R/main.R,added,9,0,9,2025-04-07T17:52:51Z,70X7
+1e38c236afe3a31fa678b5781f211bb514b03e60,R/main.R,modified,38,8,46,2025-04-24T14:24:19Z,Komstramast
+167a3b2c54b2acd1cae64ecdd8c8617fcb370442,README.md,modified,1,1,2,2025-04-26T10:28:46Z,Komstramast
+9fc720383a654d7b5a8b55e9566b30af012d6cf7,R/etl.R,renamed,0,0,0,2025-05-07T15:26:25Z,A1dfal
+8673295343adaed67e87388e582ea3c11bb82bfd,.gitignore,added,4,0,4,2025-05-07T15:27:08Z,A1dfal
+8673295343adaed67e87388e582ea3c11bb82bfd,Group_project_C4.Rproj,added,13,0,13,2025-05-07T15:27:08Z,A1dfal
+bea67039ca7e6ff3e5a60c33d8fd58daa74197ee,R/etl.R,modified,51,38,89,2025-05-07T15:32:00Z,A1dfal
+e1e3bc21df33c0ca1dfb75621f1cfc1919fe6a34,R/01_extract_git_log.R,added,66,0,66,2025-05-07T16:37:46Z,A1dfal
+9ffd273b64d3006a6d18e8c399b74182e2613fdf,R/01_extract_git_log.R,added,0,0,0,2025-05-07T16:37:46Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,R/01_extract_git_log.R,modified,3,3,6,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,R/02_clean_transform.R,added,32,0,32,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,R/03_analyze_profiles.R,added,29,0,29,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,R/04_detect_anomalies_h2o.R,added,40,0,40,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,R/etl.R,removed,0,52,52,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,app/app.R,added,55,0,55,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,data/commits_clean.csv,added,20,0,20,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,data/commits_transformed.csv,added,20,0,20,2025-05-08T16:15:27Z,A1dfal
+73e864547de551309d0b274c28a03bb69eb7f723,outputs/developer_profiles.csv,added,4,0,4,2025-05-08T16:15:27Z,A1dfal

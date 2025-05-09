@@ -27,3 +27,4 @@ if (!dir.exists("outputs")) dir.create("outputs")
 write_csv(profiles, "outputs/developer_profiles.csv")
 
 message("✅ Поведенческие профили сохранены в outputs/developer_profiles.csv")
+
