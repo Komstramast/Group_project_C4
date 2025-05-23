@@ -6,14 +6,29 @@ library(dplyr)
 library(purrr)
 library(lubridate)
 library(readr)
+library(stringr)
 
-# ✅ Настройки репозитория
-owner <- "Komstramast"  # ЗАМЕНИ!
-repo <- "Group_project_C4"         # ЗАМЕНИ!
-n_commits <- 100                 # Сколько коммитов извлечь
+# ✅ Получение настроек из переменных окружения
+repo_path <- Sys.getenv("REPO_PATH")
+github_token <- Sys.getenv("GITHUB_PAT")
 
-# 💡 Убедись, что токен установлен
-Sys.setenv(GITHUB_PAT = "ghp")
+if (repo_path == "" || github_token == "") {
+  stop("❌ Переменные окружения REPO_PATH и GITHUB_PAT должны быть установлены.")
+}
+
+# 📦 Разделение owner/repo
+parts <- str_split(repo_path, "/", simplify = TRUE)
+if (ncol(parts) != 2) {
+  stop("❌ Формат REPO_PATH должен быть: owner/repo")
+}
+owner <- parts[1]
+repo <- parts[2]
+
+# 🔐 Установка токена
+Sys.setenv(GITHUB_PAT = github_token)
+
+# 🔢 Сколько коммитов загружать
+n_commits <- 100
 
 # 📥 Получение коммитов
 message("📥 Получаем список коммитов...")
@@ -33,7 +48,7 @@ commits_df <- map_df(commits, function(x) {
   )
 })
 
-# 📊 Функция: получаем детали по коммиту
+# 📊 Получение деталей коммитов
 get_commit_details <- function(sha) {
   detail <- gh("/repos/{owner}/{repo}/commits/{sha}",
                owner = owner, repo = repo, sha = sha)
@@ -47,11 +62,9 @@ get_commit_details <- function(sha) {
   )
 }
 
-# 🔄 Обходим все SHA и получаем детали
 message("📊 Получаем подробности по каждому коммиту...")
 details_list <- map(commits_df$sha, safely(get_commit_details))
 
-# Отфильтруем удачные
 details_df <- map_df(details_list, function(res) {
   if (!is.null(res$result)) return(res$result)
   else return(NULL)
@@ -60,7 +73,7 @@ details_df <- map_df(details_list, function(res) {
 # 🧩 Объединение таблиц
 final_df <- left_join(commits_df, details_df, by = "sha")
 
-# 💾 Сохраняем
+# 💾 Сохраняем результат
 if (!dir.exists("data")) dir.create("data")
 write_csv(final_df, "data/commits_clean.csv")
 message("✅ Готово! Сохранено в data/commits_clean.csv")

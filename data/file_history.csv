@@ -24,3 +24,18 @@ e1e3bc21df33c0ca1dfb75621f1cfc1919fe6a34,R/01_extract_git_log.R,added,66,0,66,20
 73e864547de551309d0b274c28a03bb69eb7f723,data/commits_clean.csv,added,20,0,20,2025-05-08T16:15:27Z,A1dfal
 73e864547de551309d0b274c28a03bb69eb7f723,data/commits_transformed.csv,added,20,0,20,2025-05-08T16:15:27Z,A1dfal
 73e864547de551309d0b274c28a03bb69eb7f723,outputs/developer_profiles.csv,added,4,0,4,2025-05-08T16:15:27Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,R/01_extract_git_log.R,modified,1,1,2,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,R/03_analyze_profiles.R,modified,1,0,1,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,R/04_detect_anomalies.R,added,25,0,25,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,R/04_detect_anomalies_h2o.R,removed,0,40,40,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,R/05_file_history.R,added,60,0,60,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,R/06_visualize_file_history.R,added,39,0,39,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,app/app.R,modified,110,27,137,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,data/commits_clean.csv,modified,1,0,1,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,data/commits_transformed.csv,modified,1,0,1,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,data/file_history.csv,added,26,0,26,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,outputs/anomalies.csv,added,21,0,21,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,outputs/developer_profiles.csv,modified,1,1,2,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,outputs/file_changes_timeline.png,added,0,0,0,2025-05-09T16:33:19Z,A1dfal
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,outputs/file_type_activity.png,added,0,0,0,2025-05-09T16:33:19Z,A1dfal
+1e51286e54d7a3d006d2894a1244ba0fe87f99eb,ETL Анализ Github.pptx,added,0,0,0,2025-05-10T08:01:43Z,Komstramast

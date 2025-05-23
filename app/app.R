@@ -8,36 +8,50 @@ commits <- read_csv("../data/commits_transformed.csv")
 anomalies <- read_csv("../outputs/anomalies.csv")
 profiles <- read_csv("../outputs/developer_profiles.csv")
 file_history <- read_csv("../data/file_history.csv") %>%
-  mutate(week = lubridate::floor_date(as.Date(date), "week"),
-         ext = tools::file_ext(filename))
+  mutate(ext = tools::file_ext(filename)) # Добавление расширения файла
 
 ui <- fluidPage(
-  titlePanel("Анализ поведения разработчиков в репозиториях GitHub"),
+  titlePanel("Анализ поведения разработчиков из GitHub"),
   
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("author", "Выберите разработчика:",
-                  choices = unique(commits$author))
+  tabsetPanel(
+    tabPanel("📊 Главная",
+             DT::dataTableOutput("topAuthors"),
+             plotOutput("locHistogram")
     ),
     
-    mainPanel(
-      tabsetPanel(
-        tabPanel("Сводка профилей",
-                 DT::dataTableOutput("topAuthors"),
-                 plotOutput("locHistogram")
-        ),
-        tabPanel("Радар-карта профиля",
+    tabPanel("🧬 Профиль разработчика",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("author", "Выберите разработчика:",
+                             choices = unique(commits$author))
+               ),
+               mainPanel(
                  plotOutput("radarPlot")
-        ),
-        tabPanel("Аномалии",
-                 DT::dataTableOutput("anomalyTable"),
-                 plotOutput("anomalyHoursPlot")
-        ),
-        tabPanel("История файлов",
-                 plotOutput("fileChangesTimeline"),
-                 plotOutput("fileTypeActivity")
-        )
-      )
+               )
+             )
+    ),
+    
+    tabPanel("🚨 Аномалии",
+             DT::dataTableOutput("anomalyTable"),
+             plotOutput("anomalyHoursPlot")
+    ),
+    
+    tabPanel("🗂 История изменений файлов",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("fh_author", "Разработчик:",
+                             choices = unique(file_history$author)),
+                 selectInput("fh_ext", "Тип файла:",
+                             choices = unique(file_history$ext)),
+                 dateRangeInput("fh_date", "Диапазон дат:",
+                                start = min(file_history$date),
+                                end = max(file_history$date))
+               ),
+               mainPanel(
+                 DT::dataTableOutput("fileHistoryTable"),
+                 plotOutput("fileChangePlot")
+               )
+             )
     )
   )
 )
@@ -49,7 +63,7 @@ server <- function(input, output) {
     profiles %>%
       top_n(10, commits_total) %>%
       arrange(desc(commits_total)) %>%
-      DT::datatable(options = list(pageLength = 10), rownames = FALSE)
+      datatable(options = list(pageLength = 10), rownames = FALSE)
   })
   
   output$locHistogram <- renderPlot({
@@ -60,7 +74,7 @@ server <- function(input, output) {
       theme_minimal()
   })
   
-  # === Радар-карта ===
+  # === Радар-карта профиля ===
   output$radarPlot <- renderPlot({
     df <- commits %>%
       filter(author == input$author) %>%
@@ -96,7 +110,7 @@ server <- function(input, output) {
     anomalies %>%
       filter(is_anomaly == TRUE) %>%
       select(author, date, message, loc_change, hour) %>%
-      DT::datatable(options = list(pageLength = 10), rownames = FALSE)
+      datatable(options = list(pageLength = 10), rownames = FALSE)
   })
   
   output$anomalyHoursPlot <- renderPlot({
@@ -110,27 +124,28 @@ server <- function(input, output) {
   })
   
   # === История изменений файлов ===
-  output$fileChangesTimeline <- renderPlot({
+  output$fileHistoryTable <- DT::renderDataTable({
     file_history %>%
-      group_by(week) %>%
-      summarise(total_changes = sum(changes, na.rm = TRUE)) %>%
-      ggplot(aes(x = week, y = total_changes)) +
-      geom_line(color = "steelblue", size = 1.2) +
-      geom_point(color = "darkblue") +
-      labs(title = "История изменений файлов по неделям",
-           x = "Неделя", y = "Количество изменений") +
-      theme_minimal()
+    filter(author == input$fh_author,
+           ext == input$fh_ext,
+           date >= input$fh_date[1],
+           date <= input$fh_date[2]) %>%
+      select(date, author, filename, status, additions, deletions, ext) %>%
+      arrange(desc(date)) %>%
+      datatable(options = list(pageLength = 10), rownames = FALSE)
   })
   
-  output$fileTypeActivity <- renderPlot({
+  output$fileChangePlot <- renderPlot({
     file_history %>%
-      group_by(ext) %>%
-      summarise(n = n()) %>%
-      filter(n > 5) %>%
-      ggplot(aes(x = reorder(ext, -n), y = n)) +
-      geom_col(fill = "coral") +
-      labs(title = "Активность по типам файлов",
-           x = "Расширение файла", y = "Количество изменений") +
+      filter(author == input$fh_author,
+             ext == input$fh_ext,
+             date >= input$fh_date[1],
+             date <= input$fh_date[2]) %>%
+      group_by(week = lubridate::floor_date(date, "week")) %>%
+      summarise(changes = sum(additions + deletions, na.rm = TRUE)) %>%
+      ggplot(aes(x = week, y = changes)) +
+      geom_line(color = "purple") +
+      labs(title = "Изменения по неделям", x = "Неделя", y = "LoC") +
       theme_minimal()
   })
 }
