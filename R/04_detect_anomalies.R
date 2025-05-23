@@ -13,7 +13,7 @@ features <- commits %>%
   select(loc_change, added, deleted, hour, message_length, n_files) %>%
   mutate_all(~replace_na(., 0))  # заменим NA на 0
 
-# --- Обучение модели Isolation Forest ---
+# --- Модель Isolation Forest ---
 model <- isolation.forest(features, ntrees = 100, sample_size = 256)
 
 # --- Предсказание аномалий ---

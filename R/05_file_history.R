@@ -1,29 +1,48 @@
-# 05_file_history.R
+# scripts/05_file_history.R
 
+# 🔧 Зависимости
 library(gh)
 library(tidyverse)
-library(jsonlite)
 library(lubridate)
+library(stringr)
 
-# --- Настройки ---
-repo_owner <- "Komstramast"
-repo_name <- "Group_project_C4"
-max_commits <- 200  # лимит для примера
+# ✅ Получение настроек из переменных окружения
+repo_path <- Sys.getenv("REPO_PATH")
+github_token <- Sys.getenv("GITHUB_PAT")
 
-# --- Получаем коммиты ---
+if (repo_path == "" || github_token == "") {
+  stop("❌ Переменные окружения REPO_PATH и GITHUB_PAT должны быть установлены.")
+}
+
+# 📦 Разделение owner/repo
+parts <- str_split(repo_path, "/", simplify = TRUE)
+if (ncol(parts) != 2) {
+  stop("❌ Формат REPO_PATH должен быть: owner/repo")
+}
+owner <- parts[1]
+repo <- parts[2]
+
+# 🔐 Установка токена
+Sys.setenv(GITHUB_PAT = github_token)
+
+# 🔢 Лимит коммитов
+max_commits <- 200
+
+# 📥 Получаем коммиты
+message("📥 Получаем список коммитов для истории файлов...")
 commits <- gh::gh(
   endpoint = "/repos/:owner/:repo/commits",
-  owner = repo_owner,
-  repo = repo_name,
+  owner = owner,
+  repo = repo,
   .limit = max_commits
 )
 
-# --- Функция для получения файлов коммита ---
+# 🧾 Функция для получения файлов по коммиту
 get_commit_files <- function(sha) {
   commit_details <- gh::gh(
     endpoint = "/repos/:owner/:repo/commits/:sha",
-    owner = repo_owner,
-    repo = repo_name,
+    owner = owner,
+    repo = repo,
     sha = sha
   )
   
@@ -40,9 +59,9 @@ get_commit_files <- function(sha) {
   )
 }
 
-# --- Собираем изменения по каждому коммиту ---
+# 🔄 Собираем историю изменений файлов
 file_history <- map_df(commits, function(cmt) {
-  message("Fetching: ", cmt$sha)
+  message("🔎 Обрабатываем коммит: ", cmt$sha)
   files <- get_commit_files(cmt$sha)
   if (!is.null(files)) {
     files$date <- ymd_hms(cmt$commit$author$date)
@@ -52,9 +71,10 @@ file_history <- map_df(commits, function(cmt) {
   return(NULL)
 })
 
-# --- Сортируем по дате ---
+# 📊 Сортировка и сохранение
 file_history_sorted <- file_history %>%
   arrange(date)
 
-# --- Сохраняем ---
+if (!dir.exists("data")) dir.create("data")
 write_csv(file_history_sorted, "data/file_history.csv")
+message("✅ История изменений файлов сохранена в data/file_history.csv")
