@@ -11,36 +11,65 @@ file_history <- read_csv("../data/file_history.csv") %>%
   mutate(ext = tools::file_ext(filename))
 
 ui <- fluidPage(
+  # Полная ширина и высота страницы без лишних отступов
+  tags$head(tags$style(HTML(
+    "
+    html, body {width:100%;height:100%;margin:0;padding:0;overflow-x:hidden;} 
+    .container-fluid {padding: 5px;}
+    "
+  ))),
   titlePanel("Анализ поведения разработчиков из GitHub"),
+  
   tabsetPanel(
+    id = "mainTabs",
+    type = "tabs",
     tabPanel("📊 Главная",
-             DT::dataTableOutput("topAuthors"),
-             plotOutput("locHistogram")
-    ),
-    tabPanel("🧬 Профиль разработчика",
-             sidebarLayout(
-               sidebarPanel(
-                 selectInput("author", "Выберите разработчика:", choices = unique(commits$author))
+             fluidRow(
+               column(6,
+                      DT::dataTableOutput("topAuthors")
                ),
-               mainPanel(
-                 plotOutput("radarPlot")
+               column(6,
+                      plotOutput("locHistogram", width = "100%", height = "400px")
                )
              )
     ),
-    tabPanel("🚨 Аномалии",
-             DT::dataTableOutput("anomalyTable"),
-             plotOutput("anomalyHoursPlot")
+    
+    tabPanel("🧬 Профиль разработчика",
+             sidebarLayout(
+               sidebarPanel(
+                 width = 3,
+                 selectInput("author", "Выберите разработчика:", choices = unique(commits$author))
+               ),
+               mainPanel(
+                 width = 9,
+                 plotOutput("radarPlot", width = "100%", height = "600px")
+               )
+             )
     ),
+    
+    tabPanel("🚨 Аномалии",
+             fluidRow(
+               column(12,
+                      DT::dataTableOutput("anomalyTable")
+               ),
+               column(12,
+                      plotOutput("anomalyHoursPlot", width = "100%", height = "300px")
+               )
+             )
+    ),
+    
     tabPanel("🗂 История изменений файлов",
              sidebarLayout(
                sidebarPanel(
+                 width = 3,
                  selectInput("fh_author", "Разработчик:", choices = unique(file_history$author)),
                  selectInput("fh_ext",    "Тип файла:", choices = unique(file_history$ext)),
                  dateRangeInput("fh_date","Диапазон дат:", start = min(file_history$date), end = max(file_history$date))
                ),
                mainPanel(
+                 width = 9,
                  DT::dataTableOutput("fileHistoryTable"),
-                 plotOutput("fileChangePlot")
+                 plotOutput("fileChangePlot", width = "100%", height = "300px")
                )
              )
     )
@@ -48,7 +77,7 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
-  # === Сводка профилей ===
+  # === Главная ===
   output$topAuthors <- DT::renderDataTable({
     profiles %>%
       top_n(10, commits_total) %>%
@@ -65,7 +94,10 @@ server <- function(input, output) {
         "Активных дней"              = n_days_active,
         "Среднее число файлов"       = avg_files_changed
       ) %>%
-      datatable(options = list(pageLength = 10), rownames = FALSE)
+      datatable(
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
   })
   
   output$locHistogram <- renderPlot({
@@ -91,9 +123,7 @@ server <- function(input, output) {
     max_vals <- sapply(metrics_all[-1], max, na.rm = TRUE)
     min_vals <- setNames(rep(0, length(max_vals)), names(max_vals))
     
-    df_author <- metrics_all %>%
-      filter(author == input$author) %>%
-      select(-author)
+    df_author <- metrics_all %>% filter(author == input$author) %>% select(-author)
     
     rus_names <- c(
       avg_loc       = "Среднее изменение LoC",
@@ -129,32 +159,33 @@ server <- function(input, output) {
   
   # === Аномалии ===
   output$anomalyTable <- DT::renderDataTable({
-    anomalies %>%
-      filter(is_anomaly) %>%
+    anomalies %>% filter(is_anomaly) %>%
       rename(
-        SHA               = sha,
-        Автор             = author,
-        Email             = email,
-        Дата              = date,
-        День_недели       = weekday,
-        Час_коммита       = hour,
-        Длина_сообщения   = message_length,
-        "Merge-коммит"   = is_merge,
-        Сообщение         = message,
-        Общие_изменения   = total,
-        "Всего изменений"= loc_change,
+        SHA                = sha,
+        Автор              = author,
+        Email              = email,
+        Дата               = date,
+        День_недели        = weekday,
+        Час_коммита        = hour,
+        Длина_сообщения    = message_length,
+        "Merge-коммит"    = is_merge,
+        Сообщение          = message,
+        Общие_изменения    = total,
+        "Всего изменений" = loc_change,
         "Добавлено строк" = added,
         "Удалено строк"   = deleted,
         "Файлов изменено" = n_files,
         "Скор аномалии"   = anomaly_score,
-        "Признак аномалии" = is_anomaly
+        "Признак аномалии"= is_anomaly
       ) %>%
-      datatable(options = list(pageLength = 10), rownames = FALSE)
+      datatable(
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
   })
   
   output$anomalyHoursPlot <- renderPlot({
-    anomalies %>%
-      filter(is_anomaly) %>%
+    anomalies %>% filter(is_anomaly) %>%
       ggplot(aes(x = hour)) +
       geom_histogram(bins = 24, fill = "red", color = "black") +
       labs(title = "Часы активности аномальных коммитов", x = "Час", y = "Кол-во аномалий") +
@@ -163,13 +194,12 @@ server <- function(input, output) {
   
   # === История изменений файлов ===
   output$fileHistoryTable <- DT::renderDataTable({
-    file_history %>%
-      filter(
-        author == input$fh_author,
-        ext    == input$fh_ext,
-        date   >= input$fh_date[1],
-        date   <= input$fh_date[2]
-      ) %>%
+    file_history %>% filter(
+      author == input$fh_author,
+      ext    == input$fh_ext,
+      date   >= input$fh_date[1],
+      date   <= input$fh_date[2]
+    ) %>%
       rename(
         Дата       = date,
         Автор      = author,
@@ -180,17 +210,19 @@ server <- function(input, output) {
         Расширение = ext
       ) %>%
       arrange(desc(Дата)) %>%
-      datatable(options = list(pageLength = 10), rownames = FALSE)
+      datatable(
+        options = list(pageLength = 10, scrollX = TRUE),
+        rownames = FALSE
+      )
   })
   
   output$fileChangePlot <- renderPlot({
-    file_history %>%
-      filter(
-        author == input$fh_author,
-        ext    == input$fh_ext,
-        date   >= input$fh_date[1],
-        date   <= input$fh_date[2]
-      ) %>%
+    file_history %>% filter(
+      author == input$fh_author,
+      ext    == input$fh_ext,
+      date   >= input$fh_date[1],
+      date   <= input$fh_date[2]
+    ) %>%
       group_by(week = lubridate::floor_date(date, "week")) %>%
       summarise(changes = sum(additions + deletions, na.rm = TRUE)) %>%
       ggplot(aes(x = week, y = changes)) +
