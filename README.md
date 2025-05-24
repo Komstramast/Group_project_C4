@@ -16,9 +16,9 @@
 
 1.  [R версии 4.0 и выше](https://www.r-project.org/)
 
-2.  [Git](https://git-scm.com/) (проект тестировался на версии git 2.48 под Windows)
+2.  [Git](https://git-scm.com/)
 
-3.  [RStudio](https://posit.co/download/rstudio-desktop/) (по желанию)
+3.  [RStudio](https://posit.co/download/rstudio-desktop/)
 
 ### Первичная настройка
 
@@ -32,7 +32,7 @@
 
 ### **Установка пакетов**
 
-Для корректной работы ПО необходимо установить зависимости R-пакетов через команду: `install.packages(c( "shiny", "bslib", "shinyWidgets", "shinydashboard", "shinyjs", "jsonlite", "httr", "gh", "dplyr", "data.table", "readr", "DT", "stringr", "lubridate", "glue", "purrr", "``tidyr", "ggplot2", "fmsd" ))`
+Для корректной работы ПО необходимо установить зависимости R-пакетов через команду: ``` install.packages(c( "shiny", "bslib", "shinyWidgets", "shinydashboard", "shinyjs", "jsonlite", "httr", "gh", "dplyr", "data.table", "readr", "DT", "stringr", "lubridate", "glue", "purrr", "``tidyr", "ggplot2", "fmsd" )) ```
 
 ### **Запуск через RStudio:**
 
@@ -126,7 +126,7 @@
 
 ![](images/clipboard-2302869978.png)
 
-### Профили разработчика: 
+### Профили разработчика:
 
 ![](images/clipboard-3901862752.png)
 
