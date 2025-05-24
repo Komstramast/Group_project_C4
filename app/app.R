@@ -76,33 +76,56 @@ server <- function(input, output) {
   
   # === Радар-карта профиля ===
   output$radarPlot <- renderPlot({
-    df <- commits %>%
-      filter(author == input$author) %>%
+    # 1) Собираем данные по всем авторам
+    metrics_all <- commits %>%
+      group_by(author) %>%
       summarise(
-        avg_loc = mean(loc_change, na.rm = TRUE),
-        avg_added = mean(added, na.rm = TRUE),
-        avg_deleted = mean(deleted, na.rm = TRUE),
-        msg_len = mean(message_length, na.rm = TRUE),
-        activity_hour = mean(hour, na.rm = TRUE),
-        files = mean(n_files, na.rm = TRUE)
-      )
+        avg_loc       = mean(loc_change,     na.rm = TRUE),
+        avg_added     = mean(added,          na.rm = TRUE),
+        avg_deleted   = mean(deleted,        na.rm = TRUE),
+        msg_len       = mean(message_length, na.rm = TRUE),
+        activity_hour = mean(hour,           na.rm = TRUE),
+        files         = mean(n_files,        na.rm = TRUE)
+      ) %>% ungroup()
     
-    radar_df <- rbind(
-      max = c(200, 150, 100, 100, 24, 20),
-      min = c(0, 0, 0, 0, 0, 0),
-      df
+    # 2) Вычисляем именованные векторы максимумов и минимумов
+    max_vals <- sapply(metrics_all[-1], max, na.rm = TRUE)   # без колонки author
+    min_vals <- setNames(rep(0, length(max_vals)), names(max_vals))
+    
+    # 3) Собираем данные только для выбранного автора
+    df_author <- metrics_all %>%
+      filter(author == input$author) %>%
+      select(-author)
+    
+    # 4) Формируем финальный data.frame для radarchart
+    radar_df <- as.data.frame(
+      rbind(
+        max_vals,
+        min_vals,
+        df_author
+      )
     )
     rownames(radar_df) <- c("max", "min", input$author)
     
-    radarchart(radar_df,
-               axistype = 1,
-               pcol = "blue",
-               pfcol = rgb(0.2, 0.5, 1, 0.4),
-               plwd = 2,
-               cglcol = "grey", cglty = 1,
-               axislabcol = "grey", caxislabels = seq(0, 200, 50), cglwd = 0.8,
-               vlcex = 0.8,
-               title = paste("Радар-профиль:", input$author))
+    # 5) Автоматические метки шкалы
+    axis_max    <- ceiling(max(max_vals) / 10) * 10
+    axis_breaks <- seq(0, axis_max, length.out = 5)
+    
+    # 6) Построение
+    radarchart(
+      radar_df,
+      axistype    = 1,
+      pcol        = "blue",
+      pfcol       = rgb(0.2, 0.5, 1, 0.4),
+      plwd        = 2,
+      cglcol      = "grey",
+      cglty       = 1,
+      cglwd       = 0.8,
+      axislabcol  = "grey",
+      caxislabels = axis_breaks,
+      vlcex       = 0.8,
+      title       = paste("Радар-профиль:", input$author)
+    )
   })
   
   # === Аномалии ===
