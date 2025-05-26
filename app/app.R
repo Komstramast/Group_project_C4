@@ -37,6 +37,7 @@ ui <- fluidPage(
   titlePanel("Анализ поведения разработчиков из GitHub"),
   tabsetPanel(
     id = "mainTabs", type = "tabs",
+    
     tabPanel("📊 Главная",
              fluidRow(
                column(6, DT::dataTableOutput("topAuthors")),
