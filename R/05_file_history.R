@@ -37,6 +37,18 @@ commits <- gh::gh(
   .limit = max_commits
 )
 
+
+# 🔄 Собираем историю изменений файлов
+file_history <- map_df(commits, function(cmt) {
+  message("🔎 Обрабатываем коммит: ", cmt$sha)
+  files <- get_commit_files(cmt$sha)
+  if (!is.null(files)) {
+    files$date <- ymd_hms(cmt$commit$author$date)
+    files$author <- cmt$commit$author$name
+    return(files)
+  }
+  return(NULL)
+})
 # 🧾 Функция для получения файлов по коммиту
 get_commit_files <- function(sha) {
   commit_details <- gh::gh(
@@ -58,18 +70,6 @@ get_commit_files <- function(sha) {
     changes = map_dbl(files, "changes")
   )
 }
-
-# 🔄 Собираем историю изменений файлов
-file_history <- map_df(commits, function(cmt) {
-  message("🔎 Обрабатываем коммит: ", cmt$sha)
-  files <- get_commit_files(cmt$sha)
-  if (!is.null(files)) {
-    files$date <- ymd_hms(cmt$commit$author$date)
-    files$author <- cmt$commit$author$name
-    return(files)
-  }
-  return(NULL)
-})
 
 # 📊 Сортировка и сохранение
 file_history_sorted <- file_history %>%
