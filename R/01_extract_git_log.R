@@ -9,20 +9,25 @@ library(readr)
 library(stringr)
 
 # ✅ Получение настроек из переменных окружения
-repo_path <- Sys.getenv("REPO_PATH")
-github_token <- Sys.getenv("GITHUB_PAT")
+repo_path
+  <- Sys.getenv("REPO_PATH")
+github_token
+  <- Sys.getenv("GITHUB_PAT")
 
 if (repo_path == "" || github_token == "") {
   stop("❌ Переменные окружения REPO_PATH и GITHUB_PAT должны быть установлены.")
 }
 
 # 📦 Разделение owner/repo
-parts <- str_split(repo_path, "/", simplify = TRUE)
+parts
+  <- str_split(repo_path, "/", simplify = TRUE)
 if (ncol(parts) != 2) {
   stop("❌ Формат REPO_PATH должен быть: owner/repo")
 }
-owner <- parts[1]
-repo <- parts[2]
+owner
+  <- parts[1]
+repo
+  <- parts[2]
 
 # 🔐 Установка токена
 Sys.setenv(GITHUB_PAT = github_token)
@@ -31,7 +36,8 @@ Sys.setenv(GITHUB_PAT = github_token)
 n_commits <- 100
 # 📊 Получение деталей коммитов
 get_commit_details <- function(sha) {
-  detail <- gh("/repos/{owner}/{repo}/commits/{sha}",
+  detail
+    <- gh("/repos/{owner}/{repo}/commits/{sha}",
                owner = owner, repo = repo, sha = sha)
   
   tibble(
@@ -50,7 +56,8 @@ commits <- gh(
   per_page = n_commits
 )
 
-commits_df <- map_df(commits, function(x) {
+commits_df
+  <- map_df(commits, function(x) {
   tibble(
     sha     = x$sha,
     author  = if (!is.null(x$commit$author$name)) x$commit$author$name else NA,
