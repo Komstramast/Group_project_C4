@@ -1,0 +1,39 @@
+sha,author,email,date,message,total,added,deleted,n_files,weekday,hour,message_length,is_merge,loc_change,anomaly_score,is_anomaly
+050320821110349620b4515edc51859138c374b5,70x7,linuxmasterrace@mail.ru,2025-04-07T17:52:51Z,init: add main.R file,9,9,0,1,Пн,17,21,FALSE,9,0.35618399983345966,FALSE
+9fc720383a654d7b5a8b55e9566b30af012d6cf7,a1dfal,smirnitskykostya@gmail.com,2025-05-07T15:26:25Z,rename,0,0,0,1,Ср,15,6,FALSE,0,0.3605426321049075,FALSE
+8673295343adaed67e87388e582ea3c11bb82bfd,a1dfal,smirnitskykostya@gmail.com,2025-05-07T15:27:08Z,commit,17,17,0,2,Ср,15,6,FALSE,17,0.4308475080118048,FALSE
+bea67039ca7e6ff3e5a60c33d8fd58daa74197ee,a1dfal,smirnitskykostya@gmail.com,2025-05-07T15:32:00Z,transform to etl code,89,51,38,1,Ср,15,21,FALSE,89,0.41099449874921995,FALSE
+e1e3bc21df33c0ca1dfb75621f1cfc1919fe6a34,a1dfal,smirnitskykostya@gmail.com,2025-05-07T16:37:46Z,create extraction script,66,66,0,1,Ср,16,24,FALSE,66,0.4116969981208504,FALSE
+9ffd273b64d3006a6d18e8c399b74182e2613fdf,a1dfal,smirnitskykostya@gmail.com,2025-05-07T16:37:46Z,create extraction script,0,0,0,1,Ср,16,24,FALSE,0,0.3395196422945379,FALSE
+68a09f207d2b4d9b2faddd0beaf82890cd06c4b4,a1dfal,smirnitskykostya@gmail.com,2025-05-07T16:43:20Z,Merge branch 'main' of https://github.com/Komstramast/Group_project_C4,0,0,0,0,Ср,16,70,TRUE,0,0.5121123886002709,FALSE
+73e864547de551309d0b274c28a03bb69eb7f723,a1dfal,smirnitskykostya@gmail.com,2025-05-08T16:15:27Z,ETL phase modification,258,203,55,9,Чт,16,22,FALSE,258,0.5827459349635156,FALSE
+2fbd103f3b2cfd7dc2b20b18bf3dac93f85e96f4,a1dfal,smirnitskykostya@gmail.com,2025-05-09T16:33:19Z,etl 1.0,355,286,69,14,Пт,16,7,FALSE,355,0.6895635785856583,TRUE
+d9026229d24d21f308e049af7df169431f05e6a1,a1dfal,smirnitskykostya@gmail.com,2025-05-23T17:30:33Z,"improved shiny app interface, added run_project script",226,153,73,10,Пт,17,54,FALSE,226,0.6167213080983664,FALSE
+dca0d8a818de0a3a0681dcd315df45a9a4e0b33d,a1dfal,smirnitskykostya@gmail.com,2025-05-23T17:35:14Z,Merge branch 'main' of https://github.com/Komstramast/Group_project_C4,0,0,0,1,Пт,17,70,TRUE,0,0.4560664659265205,FALSE
+55e945b74cd3a722c04a86f7ceb0283e5ab1ae82,a1dfal,smirnitskykostya@gmail.com,2025-05-23T17:38:27Z,removed 06 script,39,0,39,1,Пт,17,17,FALSE,39,0.4056881409562115,FALSE
+cd93caa074b380d3f4b31e588d3c694b1de785d5,bl3pp-xd,Artyom2003xd@mail.ru,2025-05-23T20:16:57Z,deleted useless image,2,0,2,1,Пт,20,21,FALSE,2,0.3754999295080867,FALSE
+23ac95e66e0649f4434eda31aac75b891e930783,bl3pp-xd,Artyom2003xd@mail.ru,2025-05-23T21:22:33Z,Added description of program launch,122,121,1,3,Пт,21,35,FALSE,122,0.518510507620586,FALSE
+db1e8333ab456eef7299682e1dd56828ab2914fd,bl3pp-xd,Artyom2003xd@mail.ru,2025-05-23T23:00:15Z,Redacted description of program launch,0,0,0,3,Пт,23,38,FALSE,0,0.4765074425894779,FALSE
+6abcd90661b0b22c6f36346bc46c416b9c570ced,bl3pp-xd,Artyom2003xd@mail.ru,2025-05-23T23:01:55Z,Edited description of program launch,122,69,53,1,Пт,23,36,FALSE,122,0.4994812260713253,FALSE
+a01cda0fa09324d206ddd3e55e06d33171314cff,bl3pp-xd,Artyom2003xd@mail.ru,2025-05-24T00:14:41Z,edited description of program launch,8,4,4,1,Сб,0,36,FALSE,8,0.5209467484481872,FALSE
+3a2878b5e2341cb46ba022fb23f2a5ab85e45c61,komstramast,125812019+Komstramast@users.noreply.github.com,2025-03-09T16:56:55Z,Initial commit,2,2,0,1,Вс,16,14,FALSE,2,0.3405286636193978,FALSE
+8a2099eb305ea6c02da7c025c385dcfe8c6d6401,komstramast,125812019+Komstramast@users.noreply.github.com,2025-03-10T11:23:36Z,"Update README.md
+
+ver 1.0",2,1,1,1,Пн,11,25,FALSE,2,0.35140269551792236,FALSE
+66b9ff19b742d19408afc495fafd1f9fa06c9e77,komstramast,125812019+Komstramast@users.noreply.github.com,2025-03-15T11:33:42Z,"Update README.md
+
+ver 1.0",2,1,1,1,Сб,11,25,FALSE,2,0.35140269551792236,FALSE
+56b208b7b8bc7d2c2b54bfa1c3a2a81f542fc127,komstramast,paromovslava2003@gmail.com,2025-03-15T11:43:56Z,ver 1.1,7,7,0,2,Сб,11,7,FALSE,7,0.4148972860741264,FALSE
+bbaed84b97910d3b647b7b567eba7f5411478ff7,komstramast,paromovslava2003@gmail.com,2025-03-15T11:45:04Z,ver 1.1,4,0,4,1,Сб,11,7,FALSE,4,0.3763339164462099,FALSE
+5d2581ee765f65deb273811d65b19c712c978ef8,komstramast,paromovslava2003@gmail.com,2025-03-15T12:38:06Z,ver 1.1,0,0,0,1,Сб,12,7,FALSE,0,0.35334693675673473,FALSE
+1e38c236afe3a31fa678b5781f211bb514b03e60,komstramast,paromovslava2003@gmail.com,2025-04-24T14:24:19Z,ver 1.2,46,38,8,1,Чт,14,7,FALSE,46,0.420565237310985,FALSE
+167a3b2c54b2acd1cae64ecdd8c8617fcb370442,komstramast,125812019+Komstramast@users.noreply.github.com,2025-04-26T10:28:46Z,ver 1.2,2,1,1,1,Сб,10,7,FALSE,2,0.36675773282311835,FALSE
+1e51286e54d7a3d006d2894a1244ba0fe87f99eb,komstramast,paromovslava2003@gmail.com,2025-05-10T08:01:43Z,ETL presentation,0,0,0,1,Сб,8,16,FALSE,0,0.3813818273114028,FALSE
+97bada0e1b03a43c86fac714b4afa6fb54924902,komstramast,paromovslava2003@gmail.com,2025-05-23T19:01:00Z,Now using url and token from run_project script,54,37,17,2,Пт,19,47,FALSE,54,0.4776268892442643,FALSE
+5b2e72d52f407ef250be0fae5cbdaaf1f829d0dd,komstramast,paromovslava2003@gmail.com,2025-05-23T19:04:16Z,Test data removal,114,0,114,5,Пт,19,17,FALSE,114,0.5840868867248686,FALSE
+4a57067334ccf9578ce292a98c1d81e84daee7ce,komstramast,paromovslava2003@gmail.com,2025-05-23T19:24:07Z,Add data,148,148,0,5,Пт,19,8,FALSE,148,0.5585291340933557,FALSE
+c9c5a7c7558c18d15066dc2a28238c5ebcf4078f,komstramast,paromovslava2003@gmail.com,2025-05-24T09:53:54Z,added presentation stage: Product presentation,0,0,0,1,Сб,9,46,FALSE,0,0.41112475935089987,FALSE
+6dce220a2ff68d977f495b4b4b2a169fec785613,komstramast,paromovslava2003@gmail.com,2025-05-24T10:17:35Z,fixed radar map,67,45,22,1,Сб,10,15,FALSE,67,0.42203905806484987,FALSE
+a9bef357447a83511b4b66df4855e8b8967dc0cf,komstramast,paromovslava2003@gmail.com,2025-05-24T10:46:24Z,Metrics have been translated into Russian,117,72,45,1,Сб,10,41,FALSE,117,0.46398534115953494,FALSE
+d53cbce935903d49a3dc86b5f87926a16daf7b80,komstramast,paromovslava2003@gmail.com,2025-05-24T10:58:56Z,Fixed the interface,120,76,44,1,Сб,10,19,FALSE,120,0.43945844045456955,FALSE
+e04be86ebf62ef9fbc55634d9fe7b8f6f67bd3c4,paveltregubov,criperstals12@gmail.com,2025-05-24T12:43:42Z,Исправил график LoC,215,122,93,1,Сб,12,19,FALSE,215,0.583965273835269,FALSE
