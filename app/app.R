@@ -28,72 +28,6 @@ load_data <- function() {
     file_history = read_csv("../data/file_history.csv") %>% mutate(ext = tools::file_ext(filename))
   )
 }
-
-# === UI ===
-ui <- fluidPage(
-  tags$head(tags$style(HTML(
-    "html, body {width:100%;height:100%;margin:0;padding:0;overflow-x:hidden;} .container-fluid {padding: 5px;}"
-  ))),
-  titlePanel("Анализ поведения разработчиков из GitHub"),
-  tabsetPanel(
-    id = "mainTabs", type = "tabs",
-    
-    tabPanel("📊 Главная",
-             fluidRow(
-               column(6, DT::dataTableOutput("topAuthors")),
-               column(6, plotOutput("locHistogram", width = "100%", height = "400px"))
-             )
-    ),
-    tabPanel("🧬 Профиль разработчика",
-             sidebarLayout(
-               sidebarPanel(
-                 width = 3,
-                 selectInput("author", "Выберите разработчика:", choices = NULL)
-               ),
-               mainPanel(
-                 width = 9,
-                 plotOutput("radarPlot", width = "100%", height = "600px")
-               )
-             )
-    ),
-    tabPanel("🚨 Аномалии",
-             fluidRow(
-               column(12, DT::dataTableOutput("anomalyTable")),
-               column(12, plotOutput("anomalyHoursPlot", width = "100%", height = "300px"))
-             )
-    ),
-    tabPanel("🗂 История изменений файлов",
-             sidebarLayout(
-               sidebarPanel(
-                 width = 3,
-                 selectInput("fh_author", "Разработчик:", choices = NULL),
-                 selectInput("fh_ext", "Тип файла:", choices = NULL),
-                 dateRangeInput("fh_date", "Диапазон дат:", start = NULL, end = NULL)
-               ),
-               mainPanel(
-                 width = 9,
-                 DT::dataTableOutput("fileHistoryTable"),
-                 plotOutput("fileChangePlot", width = "100%", height = "300px")
-               )
-             )
-    ),
-    tabPanel("⚙️ Репозиторий",
-             sidebarLayout(
-               sidebarPanel(
-                 width = 4,
-                 textInput("repo_path", "Путь к репозиторию (owner/repo):", value = Sys.getenv("REPO_PATH")),
-                 textInput("github_token", "GitHub токен (GITHUB_PAT):", value = Sys.getenv("GITHUB_PAT")),
-                 actionButton("updateRepo", "Обновить данные"), br(), br(), verbatimTextOutput("updateStatus")
-               ),
-               mainPanel(
-                 width = 8,
-                 h4("Нажмите 'Обновить данные' для перезагрузки всех вкладок.")
-               )
-             )
-    )
-  )
-)
-
 # === Server ===
 server <- function(input, output, session) {
   rv <- reactiveValues(data = load_data())
@@ -246,5 +180,71 @@ server <- function(input, output, session) {
       theme_minimal()
   })
 }
+# === UI ===
+ui <- fluidPage(
+  tags$head(tags$style(HTML(
+    "html, body {width:100%;height:100%;margin:0;padding:0;overflow-x:hidden;} .container-fluid {padding: 5px;}"
+  ))),
+  titlePanel("Анализ поведения разработчиков из GitHub"),
+  tabsetPanel(
+    id = "mainTabs", type = "tabs",
+    
+    tabPanel("📊 Главная",
+             fluidRow(
+               column(6, DT::dataTableOutput("topAuthors")),
+               column(6, plotOutput("locHistogram", width = "100%", height = "400px"))
+             )
+    ),
+    tabPanel("🧬 Профиль разработчика",
+             sidebarLayout(
+               sidebarPanel(
+                 width = 3,
+                 selectInput("author", "Выберите разработчика:", choices = NULL)
+               ),
+               mainPanel(
+                 width = 9,
+                 plotOutput("radarPlot", width = "100%", height = "600px")
+               )
+             )
+    ),
+    tabPanel("🚨 Аномалии",
+             fluidRow(
+               column(12, DT::dataTableOutput("anomalyTable")),
+               column(12, plotOutput("anomalyHoursPlot", width = "100%", height = "300px"))
+             )
+    ),
+    tabPanel("🗂 История изменений файлов",
+             sidebarLayout(
+               sidebarPanel(
+                 width = 3,
+                 selectInput("fh_author", "Разработчик:", choices = NULL),
+                 selectInput("fh_ext", "Тип файла:", choices = NULL),
+                 dateRangeInput("fh_date", "Диапазон дат:", start = NULL, end = NULL)
+               ),
+               mainPanel(
+                 width = 9,
+                 DT::dataTableOutput("fileHistoryTable"),
+                 plotOutput("fileChangePlot", width = "100%", height = "300px")
+               )
+             )
+    ),
+    tabPanel("⚙️ Репозиторий",
+             sidebarLayout(
+               sidebarPanel(
+                 width = 4,
+                 textInput("repo_path", "Путь к репозиторию (owner/repo):", value = Sys.getenv("REPO_PATH")),
+                 textInput("github_token", "GitHub токен (GITHUB_PAT):", value = Sys.getenv("GITHUB_PAT")),
+                 actionButton("updateRepo", "Обновить данные"), br(), br(), verbatimTextOutput("updateStatus")
+               ),
+               mainPanel(
+                 width = 8,
+                 h4("Нажмите 'Обновить данные' для перезагрузки всех вкладок.")
+               )
+             )
+    )
+  )
+)
+
+
 
 shinyApp(ui = ui, server = server)
