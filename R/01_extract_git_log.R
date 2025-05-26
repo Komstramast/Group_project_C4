@@ -29,7 +29,19 @@ Sys.setenv(GITHUB_PAT = github_token)
 
 # 🔢 Сколько коммитов загружать
 n_commits <- 100
-
+# 📊 Получение деталей коммитов
+get_commit_details <- function(sha) {
+  detail <- gh("/repos/{owner}/{repo}/commits/{sha}",
+               owner = owner, repo = repo, sha = sha)
+  
+  tibble(
+    sha     = detail$sha,
+    total   = detail$stats$total,
+    added   = detail$stats$additions,
+    deleted = detail$stats$deletions,
+    n_files = length(detail$files)
+  )
+}
 # 📥 Получение коммитов
 message("📥 Получаем список коммитов...")
 commits <- gh(
@@ -48,19 +60,7 @@ commits_df <- map_df(commits, function(x) {
   )
 })
 
-# 📊 Получение деталей коммитов
-get_commit_details <- function(sha) {
-  detail <- gh("/repos/{owner}/{repo}/commits/{sha}",
-               owner = owner, repo = repo, sha = sha)
-  
-  tibble(
-    sha     = detail$sha,
-    total   = detail$stats$total,
-    added   = detail$stats$additions,
-    deleted = detail$stats$deletions,
-    n_files = length(detail$files)
-  )
-}
+
 
 message("📊 Получаем подробности по каждому коммиту...")
 details_list <- map(commits_df$sha, safely(get_commit_details))
