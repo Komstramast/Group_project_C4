@@ -4,12 +4,14 @@ library(dplyr)
 library(readr)
 
 # 📥 Загружаем подготовленные данные
-commits <- read_csv("data/commits_transformed.csv")
+commits 
+  <- read_csv("data/commits_transformed.csv")
 
 # 🧠 Агрегируем поведенческие метрики по разработчикам
-profiles <- commits %>%
-  group_by(author) %>%
-  summarise(
+profiles 
+  <- commits 
+  %>% group_by(author) 
+  %>% summarise(
     commits_total = n(),
     avg_loc_change = mean(loc_change, na.rm = TRUE),
     avg_added = mean(added, na.rm = TRUE),
@@ -19,8 +21,8 @@ profiles <- commits %>%
     std_commit_hour = sd(hour, na.rm = TRUE),
     n_days_active = n_distinct(date),
     avg_files_changed = mean(n_files, na.rm = TRUE)
-  ) %>%
-  arrange(desc(commits_total))
+  ) 
+  %>% arrange(desc(commits_total))
 
 # 💾 Сохраняем результат
 if (!dir.exists("outputs")) dir.create("outputs")
